@@ -7,8 +7,7 @@ const async = require('async');
 
 router.post('/signIn', function(req, res, next) {
 
-    // Asynchronous processing
-    
+    // Synchronous processing
     async.waterfall([
         function(callback){
             const signInSql = 'SELECT * FROM user WHERE id = ?';
