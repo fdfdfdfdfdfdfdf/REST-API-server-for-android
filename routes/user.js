@@ -7,21 +7,20 @@ const async = require('async');
 
 router.post('/signIn', function(req, res, next) {
 
-     if(arg){
-        const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
-        const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
+    const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
+    const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
 
-        conn.query(signUpSql, signUpParams, function(err) {
-            if(err) {
-                console.log('Insert fail\n' + err);
-                res.send('Fail');
-            }
-            else {
-                res.send('Sign Up success');
-            }
-        });
+    conn.query(signUpSql, signUpParams, function(err) {
+        if(err) {
+            console.log('Insert fail\n' + err);
+            res.send('Fail');
+        }
+        else {
+            res.send('Sign Up success');
+        }
+    });
     }
-});
+);
 
 
 router.post('/login',function(req,res,next){
