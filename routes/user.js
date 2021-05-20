@@ -7,37 +7,8 @@ const async = require('async');
 
 router.post('/signIn', function(req, res, next) {
 
-    //Synchronous processing
-    async.waterfall([
+
         function(callback){
-            const signInSql = 'SELECT passwd FROM user WHERE id = ?';
-            const signInParams = [req.body.id]
-
-            conn.query(signInSql, signInParams, function(err, rows, fields) {
-                if(err) {
-                    console.log('Select fail\n' + err);
-                    res.send("Fail")
-                }
-                else {
-                    if (rows[0] == undefined){
-                        console.log('not user\n' + err);
-                        res.send("not user")
-                    }
-                    else{
-                        if(req.body.passwd==rows[0].passwd){
-                            console.log('login\n' + err);
-                            res.send("login success")
-                        }
-                        else{
-                            console.log('not correct passwd\n' + err);
-                            res.send("login fail, please try again")
-                        }
-                    }
-                }
-            });
-        },
-
-        function(arg, callback){
             if(arg){
                 const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
                 const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
@@ -53,9 +24,39 @@ router.post('/signIn', function(req, res, next) {
                 });
             }
         }
-    ])
     
 });
+
+router.post('/login',function(req,res,next){
+
+            function(callback){
+                const signInSql = 'SELECT passwd FROM user WHERE id = ?';
+                const signInParams = [req.body.id]
+    
+                conn.query(signInSql, signInParams, function(err, rows, fields) {
+                    if(err) {
+                        console.log('Select fail\n' + err);
+                        res.send("Fail")
+                    }
+                    else {
+                        if (rows[0] == undefined){
+                            console.log('not user\n' + err);
+                            res.send("not user")
+                        }
+                        else{
+                            if(req.body.passwd==rows[0].passwd){
+                                console.log('login\n' + err);
+                                res.send("login success")
+                            }
+                            else{
+                                console.log('not correct passwd\n' + err);
+                                res.send("login fail, please try again")
+                            }
+                        }
+                    }
+                });
+            }
+})
 
 // Delete
 router.post('/withdrawal', function(req, res, next) {
