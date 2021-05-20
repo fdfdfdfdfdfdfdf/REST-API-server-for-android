@@ -9,26 +9,26 @@ router.post('/signIn', function(req, res, next) {
 
     // Synchronous processing
     async.waterfall([
-        function(callback){
-            const signInSql = 'SELECT * FROM user WHERE id = ?';
-            const signInParams = [req.body.id]
+        // function(callback){
+        //     const signInSql = 'SELECT * FROM user WHERE id = ?';
+        //     const signInParams = [req.body.id]
 
-            conn.query(signInSql, signInParams, function(err, rows, fields) {
-                if(err) {
-                    console.log('Select fail\n' + err);
-                    res.send("Fail")
-                }
-                else {
-                    if (rows[0] == undefined){
-                        callback(null, true)
-                    }
-                    else{
-                        res.send(rows[0]);
-                        callback(null, false)
-                    }
-                }
-            });
-        },
+        //     conn.query(signInSql, signInParams, function(err, rows, fields) {
+        //         if(err) {
+        //             console.log('Select fail\n' + err);
+        //             res.send("Fail")
+        //         }
+        //         else {
+        //             if (rows[0] == undefined){
+        //                 callback(null, true)
+        //             }
+        //             else{
+        //                 res.send(rows[0]);
+        //                 callback(null, false)
+        //             }
+        //         }
+        //     });
+        // },
 
         function(arg, callback){
             if(arg){
