@@ -8,7 +8,7 @@ const async = require('async');
 router.post('/signIn', function(req, res, next) {
 
     // Synchronous processing
-    async.waterfall([
+    //async.waterfall([
         // function(callback){
         //     const signInSql = 'SELECT * FROM user WHERE id = ?';
         //     const signInParams = [req.body.id]
@@ -30,24 +30,36 @@ router.post('/signIn', function(req, res, next) {
         //     });
         // },
 
-        function(arg, callback){
-            if(arg){
-                const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
-                const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
+    //     function(arg, callback){
+    //         if(arg){
+    //             const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
+    //             const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
 
-                conn.query(signUpSql, signUpParams, function(err) {
-                    if(err) {
-                        console.log('Insert fail\n' + err);
-                        res.send('Fail');
-                    }
-                    else {
-                        res.send('Sign Up success');
-                    }
-                });
-            }
+    //             conn.query(signUpSql, signUpParams, function(err) {
+    //                 if(err) {
+    //                     console.log('Insert fail\n' + err);
+    //                     res.send('Fail');
+    //                 }
+    //                 else {
+    //                     res.send('Sign Up success');
+    //                 }
+    //             });
+    //         }
+    //     }
+    
+    const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
+    const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
+
+    conn.query(signUpSql, signUpParams, function(err) {
+        if(err) {
+            console.log('Insert fail\n' + err);
+            res.send('Fail');
         }
-    ])
-
+        else {
+            res.send('Sign Up success');
+        }
+    })
+    
 });
 
 // Delete
