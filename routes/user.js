@@ -42,14 +42,14 @@ router.post('/login',function(req,res,next){
                 if(req.body.passwd==rows[0].passwd){
                         console.log('login\n');
                         res.send("login success")
-             }
-            else{
+                }
+                else{
                 console.log('not correct passwd\n');
                 res.send("login fail, please try again")
-            }
+                }
+            }   
         }
-    }
-});
+    })
 });
 
 // Delete
