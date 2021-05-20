@@ -30,21 +30,21 @@ router.post('/login',function(req,res,next){
     
      conn.query(signInSql, signInParams, function(err, rows, fields) {
         if(err) {
-             console.log('Select fail\n' + err);
+             console.log('Select fail\n');
             res.send("Fail")
          }
         else {
             if (rows[0] == undefined){
-                console.log('not user\n' + err);
+                console.log('not user\n');
                 res.send("not user")
             }
             else{
                 if(req.body.passwd==rows[0].passwd){
-                        console.log('login\n' + err);
+                        console.log('login\n');
                         res.send("login success")
              }
             else{
-                console.log('not correct passwd\n' + err);
+                console.log('not correct passwd\n');
                 res.send("login fail, please try again")
             }
         }
