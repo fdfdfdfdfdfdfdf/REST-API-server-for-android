@@ -24,7 +24,7 @@ router.post('/signIn', function(req, res, next) {
                         res.send("not user")
                     }
                     else{
-                        if(req.body.passwd==rows.passwd){
+                        if(req.body.passwd==rows[0].passwd){
                             console.log('login\n' + err);
                             res.send("login success")
                         }
