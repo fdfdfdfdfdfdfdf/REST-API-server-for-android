@@ -7,58 +7,53 @@ const async = require('async');
 
 router.post('/signIn', function(req, res, next) {
 
-    // Synchronous processing
-    //async.waterfall([
-        // function(callback){
-        //     const signInSql = 'SELECT * FROM user WHERE id = ?';
-        //     const signInParams = [req.body.id]
+    //Synchronous processing
+    async.waterfall([
+        function(callback){
+            const signInSql = 'SELECT passwd FROM user WHERE id = ?';
+            const signInParams = [req.body.id]
 
-        //     conn.query(signInSql, signInParams, function(err, rows, fields) {
-        //         if(err) {
-        //             console.log('Select fail\n' + err);
-        //             res.send("Fail")
-        //         }
-        //         else {
-        //             if (rows[0] == undefined){
-        //                 callback(null, true)
-        //             }
-        //             else{
-        //                 res.send(rows[0]);
-        //                 callback(null, false)
-        //             }
-        //         }
-        //     });
-        // },
+            conn.query(signInSql, signInParams, function(err, rows, fields) {
+                if(err) {
+                    console.log('Select fail\n' + err);
+                    res.send("Fail")
+                }
+                else {
+                    if (rows[0] == undefined){
+                        console.log('not user\n' + err);
+                        res.send("not user")
+                    }
+                    else{
+                        if(req.body.passwd==rows.passwd){
+                            console.log('login\n' + err);
+                            res.send("login success")
+                        }
+                        else{
+                            console.log('not correct passwd\n' + err);
+                            res.send("login fail, please try again")
+                        }
+                    }
+                }
+            });
+        },
 
-    //     function(arg, callback){
-    //         if(arg){
-    //             const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
-    //             const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
+        function(arg, callback){
+            if(arg){
+                const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
+                const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
 
-    //             conn.query(signUpSql, signUpParams, function(err) {
-    //                 if(err) {
-    //                     console.log('Insert fail\n' + err);
-    //                     res.send('Fail');
-    //                 }
-    //                 else {
-    //                     res.send('Sign Up success');
-    //                 }
-    //             });
-    //         }
-    //     }
-    
-    const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
-    const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
-
-    conn.query(signUpSql, signUpParams, function(err) {
-        if(err) {
-            console.log('Insert fail\n' + err);
-            res.send('Fail');
+                conn.query(signUpSql, signUpParams, function(err) {
+                    if(err) {
+                        console.log('Insert fail\n' + err);
+                        res.send('Fail');
+                    }
+                    else {
+                        res.send('Sign Up success');
+                    }
+                });
+            }
         }
-        else {
-            res.send('Sign Up success');
-        }
-    })
+    ])
     
 });
 
