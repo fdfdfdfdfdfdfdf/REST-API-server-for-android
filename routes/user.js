@@ -32,8 +32,8 @@ router.post('/signIn', function(req, res, next) {
 
         function(arg, callback){
             if(arg){
-                const signUpSql = 'INSERT INTO user VALUES(?, ?)';
-                const signUpParams = [req.body.id, "{time_1 : '200', time_2 : '450', time_3 : '50' }"];
+                const signUpSql = 'INSERT INTO user VALUES(?, ?, ?, ?)';
+                const signUpParams = [req.body.id, req.body.name, req.body.passwd, req.body.email];
 
                 conn.query(signUpSql, signUpParams, function(err) {
                     if(err) {
